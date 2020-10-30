@@ -1,17 +1,34 @@
 FROM alpine
 
-#WORKDIR /srcs
 # J'indique qui detient le dockerfile
 LABEL lduhamel="lduhamel@student.s19.be"
 
 # je mets a jour l'image
-RUN apk update
+RUN apk update \
+    && apk upgrade
 
 # INSTALL NGINX
 RUN apk add nginx
- #   && service nginx start
 
-RUN adduser -g 'Nginx www user' -h /home/www/ www
+# -D pour no password / 1er argument = chemin dossier, 2eme argument = nom dossier
+RUN adduser -D -g 'www' www
+
+COPY /srcs/nginx-config /etc/nginx/conf.d/default.conf
+
+#WORKDIR /etc/nginx/conf.d/
+
+RUN mkdir -p /run/nginx
+
+RUN nginx -t
+
+#RUN chown -R www:www /home/www
+#RUN chown -R www:www /www
+
+EXPOSE 80
+
+#CMD ["bin/sh"]
+
+CMD ["nginx", "-g", "daemon off;"]
 
 # SETUP NGINX
 # example de fichier config dans /etc/nginx/sites-enabled/default
