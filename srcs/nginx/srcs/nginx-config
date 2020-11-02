@@ -1,6 +1,6 @@
 server {
 listen 80;
-root /home/www/mynginx;
+root /www;
 index index.html;
 server_name www.mytest.com;
-}
+}¢
