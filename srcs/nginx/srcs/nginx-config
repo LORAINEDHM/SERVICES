@@ -3,4 +3,4 @@ listen 80;
 root /www;
 index index.html;
 server_name www.mytest.com;
-}¢
+}
