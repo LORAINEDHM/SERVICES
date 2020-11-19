@@ -18,20 +18,43 @@ spec:
       - name: mysql
         image: mysql-img
         ports:
-        - containerPort: 8080
+        - containerPort: 3306
         imagePullPolicy: Never
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value:
-        - name: MYSQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: mysql-username
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: mysql-password
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-claim
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-serv
+spec:
+  selector:
+    app: mysql
+  ports:
+  - port: 3306
+  loadBalancerIP: 192.168.99.111
+
+
+
+#        env:
+#        - name: MYSQL_ROOT_PASSWORD
+#          value:
+#        - name: MYSQL_USER
+#          valueFrom:
+#            secretKeyRef:
+#              name: mysql-secret
+#              key: mysql-username
+#        - name: MYSQL_PASSWORD
+#          valueFrom:
+#            secretKeyRef:
+#              name: mysql-secret
+#              key: mysql-password
+
 
           

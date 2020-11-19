@@ -16,11 +16,18 @@ RUN apk add mysql mysql-client
 RUN mkdir -p /run/mysqld 
 RUN touch /run/mysqld/mysqld.sock
 
+COPY ./srcs/start.sh  .
+
+RUN adduser -D -g 'www' www
+
 RUN mkdir -p /run/openrc/ \
     && touch /run/openrc/softlevel \
-    && /etc/init.d/mariadb setup \
-    && rc-service mariadb restart
+    && /etc/init.d/mariadb setup
+  #  && rc-service mariadb restart
 
+#ENTRYPOINT [./start.sh]
+
+CMD /bin/sh ./start.sh
 
 #COPY /srcs/mariadb-server.cnf /etc/my.cnf.d/mariadb-server.cnf
 
