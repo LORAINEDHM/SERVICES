@@ -27,6 +27,6 @@ EXPOSE 80
 
 #CMD ["bin/sh"]
 
-CMD ["-g", "daemon off;"]
+#RUN ["nginx", "-g", "daemon off;"]
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 

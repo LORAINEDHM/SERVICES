@@ -9,6 +9,9 @@ RUN apk update \
 
 RUN apk add openrc --no-cache
 
+#exiRUN mkdir -p /var/lib/mysql
+
+
 RUN apk add nginx
 
 # NGINX 
