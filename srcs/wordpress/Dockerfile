@@ -14,7 +14,7 @@ RUN apk add openrc --no-cache
 
 RUN apk add nginx
 
-# NGINX 
+# NGINX
 RUN mkdir -p /run/nginx /www
 
 RUN adduser -D -g 'www' www
