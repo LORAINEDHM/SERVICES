@@ -20,3 +20,5 @@ FLUSH PRIVILEGES;
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 eof
+
+usr/bin/mysqld --console --init_file=/tmp/sql
