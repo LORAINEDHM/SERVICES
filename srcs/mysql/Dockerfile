@@ -18,6 +18,8 @@ RUN touch /run/mysqld/mysqld.sock
 
 COPY ./srcs/start.sh  .
 
+COPY ./srcs/init.sql .
+
 RUN adduser -D -g 'www' www
 
 RUN mkdir -p /run/openrc/ \

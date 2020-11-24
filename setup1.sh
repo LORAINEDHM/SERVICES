@@ -81,7 +81,7 @@ kubectl apply -f ./srcs/yaml/wordpress.yaml
 echo "\n#------------------------------ MYSQL IMAGE BUILD ----------------------------\n"
 
 docker rmi mysql-img
-# docker build -t mysql-img ./srcs/mysql/
-docker build -t mysql-img ../../Downloads/new-ft-service/srcs/mysql/
+docker build -t mysql-img ./srcs/mysql/
+#docker build -t mysql-img ../aaa/new-ft-service/srcs/mysql/
 kubectl apply -f ./srcs/yaml/mysql.yaml
 # kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql wordpress -u root < srcs/mysql/wordpress.sql
