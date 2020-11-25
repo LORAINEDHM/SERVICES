@@ -16,6 +16,8 @@ RUN apk add mysql mysql-client
 RUN mkdir -p /run/mysqld 
 RUN touch /run/mysqld/mysqld.sock
 
+COPY ./srcs/my.cnf /etc/
+
 COPY ./srcs/start.sh  .
 
 COPY ./srcs/init.sql .
@@ -40,3 +42,30 @@ CMD /bin/sh ./start.sh
 #&& echo "CREATE USER 'user42'@'localhost' IDENTIFIED BY 'password';" | mysql -u root \
 #&& echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'user42'@'localhost' IDENTIFIED BY 'password';" | mysql -u root \
 #&& echo "FLUSH PRIVILEGES;" | mysql -u root 
+
+
+
+
+# FROM alpine
+
+# # indicate dockerfile holder
+# LABEL lduhamel="lduhamel@student.s19.be"
+
+# # updating image
+# RUN apk update \
+#     && apk upgrade
+
+# #installing nginx/php
+# RUN apk add mysql mysql-client
+
+# COPY ./srcs/my.cnf /etc/
+# COPY start.sh .
+
+# #COPY wordpress .
+# COPY init.sql .
+
+# #telegraf
+# RUN mkdir -p /etc/telegraf
+# COPY telegraf.conf /etc/telegraf/telegraf.conf
+
+# CMD /bin/sh /start.sh

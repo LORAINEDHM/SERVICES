@@ -26,7 +26,7 @@ echo "set minikube_home"
 export MINIKUBE_HOME=/Users/$(whoami)/goinfre
 
 echo "Deleting previous cluster if there is one"
-minikube delete
+#minikube delete
 
 echo "Starting Minikube (it might take a while)"
 minikube start --vm-driver=virtualbox
@@ -47,12 +47,13 @@ kubectl apply -f ./srcs/yaml/metallb-configmap.yaml
 echo "\n#------------------------------- REQUEST VOLUMES ----------------------------\n"
 
 kubectl apply -f srcs/yaml/mysql-vl.yaml
+#kubectl apply -f ../aaa/new-ft-service/srcs/yaml/mysql-vl.yaml
 # kubectl apply -f srcs/yaml/influxdbvol.yaml
 
 # echo "\n#----------------------------- NGINX  ----------------------------\n"
 
 #remove existing nginx image
-# docker rmi nginx-img
+#docker rmi nginx-img
 
 #buld nginx image
 docker build -t nginx-img ./srcs/nginx/
@@ -63,7 +64,7 @@ kubectl apply -f ./srcs/yaml/nginx.yaml
 # # echo "\n#------------------------------- PHPMYADMIN ----------------------------\n"
 
 # #remove existing phpmyadmin image
-# docker rmi php-img
+docker rmi php-img
 
 #buld nginx image
 docker build -t php-img ./srcs/phpmyadmin/
@@ -74,7 +75,7 @@ kubectl apply -f ./srcs/yaml/phpmyadmin.yaml
 
 echo "\n#--------------------------- WORDPRESS IMAGE BUILD ----------------------------\n"
 
-# docker rmi wordpress-img
+docker rmi wordpress-img
 docker build -t wordpress-img ./srcs/wordpress/
 kubectl apply -f ./srcs/yaml/wordpress.yaml
 
@@ -82,6 +83,7 @@ echo "\n#------------------------------ MYSQL IMAGE BUILD ----------------------
 
 docker rmi mysql-img
 docker build -t mysql-img ./srcs/mysql/
-#docker build -t mysql-img ../aaa/new-ft-service/srcs/mysql/
+#docker build -t mysql_i ../aaa/new-ft-service/srcs/mysql/
 kubectl apply -f ./srcs/yaml/mysql.yaml
+#kubectl apply -f ../aaa/new-ft-service/srcs/yaml/mysql.yaml
 # kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql wordpress -u root < srcs/mysql/wordpress.sql
