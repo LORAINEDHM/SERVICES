@@ -7,6 +7,9 @@ LABEL lduhamel="lduhamel@student.s19.be"
 RUN apk update \
     && apk upgrade
 
+COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
+RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+
 RUN apk add openrc --no-cache
 
 #exiRUN mkdir -p /var/lib/mysql

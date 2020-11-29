@@ -3,6 +3,9 @@ FROM alpine
 # J'indique qui detient le dockerfile
 LABEL lduhamel="lduhamel@student.s19.be"
 
+COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
+RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+
 # je mets a jour l'image
 RUN apk update \
     && apk upgrade
@@ -17,6 +20,8 @@ RUN mkdir -p /run/mysqld
 RUN touch /run/mysqld/mysqld.sock
 
 COPY ./srcs/my.cnf /etc/
+
+COPY ./srcs/wordpress.sql .
 
 COPY ./srcs/start.sh  .
 

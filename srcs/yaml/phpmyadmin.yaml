@@ -20,6 +20,11 @@ spec:
         ports:
         - containerPort: 5000
         imagePullPolicy: Never
+        livenessProbe:
+          tcpSocket:
+            port: 5000
+          initialDelaySeconds: 4
+          periodSeconds: 4
 
 ---
 

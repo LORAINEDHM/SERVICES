@@ -25,6 +25,11 @@ spec:
         - containerPort: 22
           name: ssh
         imagePullPolicy: Never
+        livenessProbe:
+          tcpSocket:
+            port: 22
+          initialDelaySeconds: 4
+          periodSeconds: 4
 ---
 
 apiVersion: v1

@@ -20,6 +20,11 @@ spec:
         ports:
         - containerPort: 3306
         imagePullPolicy: Never
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 4
+          periodSeconds: 4
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
@@ -38,7 +43,7 @@ spec:
     app: mysql
   ports:
   - port: 3306
-  loadBalancerIP: 192.168.99.112
+  type: ClusterIP
 
 
 

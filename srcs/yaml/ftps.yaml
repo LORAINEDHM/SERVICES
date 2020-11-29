@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ftps
-        image: ftps_i
+        image: ftps-img
         imagePullPolicy: Never
         livenessProbe:
           tcpSocket:
