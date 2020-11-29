@@ -156,4 +156,4 @@ $cfg['SaveDir'] = '';
  * in the doc/ folder or at <https://docs.phpmyadmin.net/>.
  */
 
-$cfg ['TempDir'] = '/phpmyadmin/tmp';
+$cfg ['TempDir'] = '/run/phpmyadmin/tmp';
