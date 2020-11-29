@@ -50,7 +50,7 @@ kubectl apply -f srcs/yaml/mysql-vl.yaml
 #kubectl apply -f ../aaa/new-ft-service/srcs/yaml/mysql-vl.yaml
 # kubectl apply -f srcs/yaml/influxdbvol.yaml
 
-# echo "\n#----------------------------- NGINX  ----------------------------\n"
+echo "\n#----------------------------- NGINX  ----------------------------\n"
 
 #remove existing nginx image
 docker rmi nginx-img
@@ -61,7 +61,14 @@ docker build -t nginx-img ./srcs/nginx/
 #nginx deployment and service
 kubectl apply -f ./srcs/yaml/nginx.yaml
 
-# # echo "\n#------------------------------- PHPMYADMIN ----------------------------\n"
+echo "\n#------------------------------- FTPS IMAGE BUILD ----------------------------\n"
+
+#docker rmi ftps_i
+docker build -t ftps-img srcs/ftps/.
+
+kubectl apply -f srcs/yaml/ftps.yaml
+
+echo "\n#------------------------------- PHPMYADMIN ----------------------------\n"
 
 # #remove existing phpmyadmin image
 docker rmi php-img
@@ -84,4 +91,8 @@ echo "\n#------------------------------ MYSQL IMAGE BUILD ----------------------
 docker rmi mysql-img
 docker build -t mysql-img ./srcs/mysql/
 kubectl apply -f ./srcs/yaml/mysql.yaml
-kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql-serv wordpress -u root < srcs/mysql/srcs/wordpress.sql
+echo ricrac
+# kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql-serv wordpress -u root < ./srcs/mysql/srcs/wordpress.sql
+kubectl exec -i `kubectl get pods | grep -o "mysql\S*"` -- mysql -u root < srcs/mysql/srcs/wordpress.sql
+kubectl exec -i `kubectl get pods | grep -o "mysql\S*"` -- mysql-serv -u root < srcs/mysql/srcs/wordpress.sql
+echo ricrac2

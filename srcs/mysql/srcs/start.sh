@@ -13,12 +13,14 @@
 #rc-service mariadb restart
 
 
-mysql_install_db --user=root --ldata=/var/lib/mysql
-cat > /tmp/sql << eof
-CREATE DATABASE wordpress;
-FLUSH PRIVILEGES;
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
-eof
+mysql_install_db --user=root > /dev/null
+# cat > /tmp/sql << eof
+# CREATE DATABASE wordpress;
+# FLUSH PRIVILEGES;
+# GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
+# FLUSH PRIVILEGES;
+# eof
 
-usr/bin/mysqld --console --init_file=/tmp/sql
+usr/bin/mysqld --user=root --bootstrap --verbose=0 < init.sql
+# (telegraf conf &) && mysqld --user=root --console
+mysqld --user=root --console
