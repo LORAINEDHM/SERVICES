@@ -26,7 +26,7 @@ echo "set minikube_home"
 export MINIKUBE_HOME=/Users/$(whoami)/goinfre
 
 echo "Deleting previous cluster if there is one"
-#minikube delete
+minikube delete
 
 echo "Starting Minikube (it might take a while)"
 minikube start --vm-driver=virtualbox
