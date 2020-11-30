@@ -9,10 +9,9 @@ COPY srcs/grafana.db /usr/share/grafana/data/grafana.db
 RUN apk update
 RUN apk upgrade
 RUN apk add openrc --no-cache
-RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
-RUN apk add grafana --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
-
+RUN apk add telegraf grafana --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+# RUN apk add grafana --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
 
 #START
 RUN chmod 777 /tmp/start.sh
-CMD sh ./tmp/start.shc
+CMD sh ./tmp/start.sh

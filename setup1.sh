@@ -32,8 +32,6 @@ echo "Starting Minikube (it might take a while)"
 minikube start --vm-driver=virtualbox
 eval $(minikube docker-env)
 
-echo "\n#-------------------------------- LUNCH DASHBOARD ----------------------------\n"
-minikube dashboard &
 
 echo "\n#-------------------------- METALLB CONFIG ------------------------------\n"
 
@@ -43,14 +41,28 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 
 #ConfigMap MetalLB
 kubectl apply -f ./srcs/yaml/metallb-configmap.yaml
+echo "\n#-------------------------------- LUNCH DASHBOARD ----------------------------\n"
+minikube dashboard &
 
 echo "\n#------------------------------- REQUEST VOLUMES ----------------------------\n"
 
 kubectl apply -f srcs/yaml/mysql-vl.yaml
-#kubectl apply -f ../aaa/new-ft-service/srcs/yaml/mysql-vl.yaml
-# kubectl apply -f srcs/yaml/influxdbvol.yaml
+# kubectl apply -f ../aaa/new-ft-service/srcs/yaml/mysql-vl.yaml
+kubectl apply -f srcs/yaml/influxdb-vl.yaml
 
-echo "\n#----------------------------- NGINX  ----------------------------\n"
+# echo "\n#------------------------------ MYSQL IMAGE BUILD ----------------------------\n"
+
+docker rmi mysql-img
+docker build -t mysql-img ./srcs/mysql/
+kubectl apply -f ./srcs/yaml/mysql.yaml
+
+echo "\n#------------------------------ INFLUXDB IMAGE BUILD ----------------------------\n"
+
+#docker rmi influxdb-img
+docker build -t influxdb-img srcs/influxdb/.
+kubectl apply -f srcs/yaml/influxdb.yaml
+
+# echo "\n#----------------------------- NGINX  ----------------------------\n"
 
 #remove existing nginx image
 docker rmi nginx-img
@@ -61,14 +73,15 @@ docker build -t nginx-img ./srcs/nginx/
 #nginx deployment and service
 kubectl apply -f ./srcs/yaml/nginx.yaml
 
-echo "\n#------------------------------- FTPS IMAGE BUILD ----------------------------\n"
+
+# echo "\n#------------------------------- FTPS IMAGE BUILD ----------------------------\n"
 
 #docker rmi ftps_i
 docker build -t ftps-img srcs/ftps/.
 
 kubectl apply -f srcs/yaml/ftps.yaml
 
-echo "\n#------------------------------- PHPMYADMIN ----------------------------\n"
+# echo "\n#------------------------------- PHPMYADMIN ----------------------------\n"
 
 # #remove existing phpmyadmin image
 docker rmi php-img
@@ -80,19 +93,21 @@ docker build -t php-img ./srcs/phpmyadmin/
 kubectl apply -f ./srcs/yaml/phpmyadmin.yaml
 # kubectl apply -f srcs/yaml/phpmyadmin.yaml
 
-# echo "\n#--------------------------- WORDPRESS IMAGE BUILD ----------------------------\n"
+echo "\n#------------------------------ GRAFANA IMAGE BUILD ----------------------------\n"
+
+docker rmi grafana-img
+docker build -t grafana-img srcs/grafana/.
+kubectl apply -f srcs/yaml/grafana.yaml
+
+# # echo "\n#--------------------------- WORDPRESS IMAGE BUILD ----------------------------\n"
 
 docker rmi wordpress-img
 docker build -t wordpress-img ./srcs/wordpress/
 kubectl apply -f ./srcs/yaml/wordpress.yaml
 
-echo "\n#------------------------------ MYSQL IMAGE BUILD ----------------------------\n"
-
-docker rmi mysql-img
-docker build -t mysql-img ./srcs/mysql/
-kubectl apply -f ./srcs/yaml/mysql.yaml
 echo ricrac
 # kubectl exec -i $(kubectl get pods | grep mysql | cut -d" " -f1) -- mysql-serv wordpress -u root < ./srcs/mysql/srcs/wordpress.sql
 kubectl exec -i `kubectl get pods | grep -o "mysql\S*"` -- mysql -u root < srcs/mysql/srcs/wordpress.sql
-kubectl exec -i `kubectl get pods | grep -o "mysql\S*"` -- mysql-serv -u root < srcs/mysql/srcs/wordpress.sql
+
+
 echo ricrac2
