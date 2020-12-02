@@ -1,0 +1,46 @@
+
+
+PHPMYADMIN :
+- User : root
+- Password : password
+
+
+WORDPRESS :
+
+Root = 
+- Website name : MyWebsite
+- User : root
+- Password : password
+- Email : root@outlook.com
+
+User2 =
+- User : riri
+- Password : password
+- Email : riri@outlook.com
+
+User3 =
+- User : fifi
+- Password : password
+- Email : fifi@outlook.com
+
+User4 =
+- User : loulou
+- Password : password
+- Email : loulou@outlook.com
+
+
+
+
+GRAFANA :
+- User : admin
+- Password : admin
+
+
+FTPS
+- User : kiss
+- Password : kiss
+
+
+
+Hello SSH command :
+ssh user@192.168.99.110

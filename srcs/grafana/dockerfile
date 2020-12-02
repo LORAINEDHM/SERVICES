@@ -3,7 +3,7 @@ FROM alpine
 #COPY
 COPY srcs/start.sh /tmp/start.sh
 COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
-COPY srcs/grafana.db /usr/share/grafana/data/grafana.db
+#COPY srcs/grafana.db /usr/share/grafana/data/grafana.db
 
 #PACKAGES
 RUN apk update
