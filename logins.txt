@@ -1,45 +1,35 @@
 
 
 PHPMYADMIN :
-- User : root
-- Password : password
+- login : root/password
 
 
 WORDPRESS :
 
 Root = 
 - Website name : MyWebsite
-- User : root
-- Password : password
+- login : root/password 
 - Email : root@outlook.com
 
 User2 =
-- User : riri
-- Password : password
+- login : riri/password 
 - Email : riri@outlook.com
 
 User3 =
-- User : fifi
-- Password : password
+- login : fifi/password
 - Email : fifi@outlook.com
 
 User4 =
-- User : loulou
-- Password : password
+- login : loulou/password
 - Email : loulou@outlook.com
 
 
-
-
 GRAFANA :
-- User : admin
-- Password : admin
+- login : admin/grafana
 
 
 FTPS
-- User : kiss
-- Password : kiss
-
+- login : kiss/kiss
 
 
 Hello SSH command :
