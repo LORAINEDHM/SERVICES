@@ -25,7 +25,7 @@ User4 =
 
 
 GRAFANA :
-- login : admin/grafana
+- login : admin/password
 
 
 FTPS
