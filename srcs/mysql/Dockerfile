@@ -3,8 +3,15 @@ FROM alpine
 # J'indique qui detient le dockerfile
 LABEL lduhamel="lduhamel@student.s19.be"
 
-COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
-RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+#COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
+#RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
+RUN wget https://dl.influxdata.com/telegraf/releases/telegraf-1.16.3_linux_amd64.tar.gz
+RUN tar xf telegraf-1.16.3_linux_amd64.tar.gz \
+   && rm telegraf-1.16.3_linux_amd64.tar.gz
+
+RUN mv telegraf-1.16.3 telegraf
+COPY srcs/telegraf.conf /telegraf/etc/telegraf/telegraf.conf
+
 
 # je mets a jour l'image
 RUN apk update \

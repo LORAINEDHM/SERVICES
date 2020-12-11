@@ -50,7 +50,7 @@ kubectl apply -f srcs/yaml/mysql-vl.yaml
 # kubectl apply -f ../aaa/new-ft-service/srcs/yaml/mysql-vl.yaml
 kubectl apply -f srcs/yaml/influxdb-vl.yaml
 
-# echo "\n#------------------------------ MYSQL IMAGE BUILD ----------------------------\n"
+ echo "\n#------------------------------ MYSQL IMAGE BUILD ----------------------------\n"
 
 docker rmi mysql-img
 docker build -t mysql-img ./srcs/mysql/
@@ -58,11 +58,11 @@ kubectl apply -f ./srcs/yaml/mysql.yaml
 
 echo "\n#------------------------------ INFLUXDB IMAGE BUILD ----------------------------\n"
 
-#docker rmi influxdb-img
+docker rmi influxdb-img
 docker build -t influxdb-img srcs/influxdb/.
 kubectl apply -f srcs/yaml/influxdb.yaml
 
-# echo "\n#----------------------------- NGINX  ----------------------------\n"
+echo "\n#----------------------------- NGINX  ----------------------------\n"
 
 #remove existing nginx image
 docker rmi nginx-img
@@ -74,14 +74,14 @@ docker build -t nginx-img ./srcs/nginx/
 kubectl apply -f ./srcs/yaml/nginx.yaml
 
 
-# echo "\n#------------------------------- FTPS IMAGE BUILD ----------------------------\n"
+echo "\n#------------------------------- FTPS IMAGE BUILD ----------------------------\n"
 
-#docker rmi ftps_i
+docker rmi ftps_i
 docker build -t ftps-img srcs/ftps/.
 
 kubectl apply -f srcs/yaml/ftps.yaml
 
-# echo "\n#------------------------------- PHPMYADMIN ----------------------------\n"
+echo "\n#------------------------------- PHPMYADMIN ----------------------------\n"
 
 # #remove existing phpmyadmin image
 docker rmi php-img
