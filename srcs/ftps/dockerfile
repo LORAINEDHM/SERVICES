@@ -1,29 +1,81 @@
+# FROM alpine
+
+# #COPY FILES
+# COPY srcs/start.sh /tmp/start.sh
+# COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
+
+# #PACKAGES
+# RUN apk update
+# RUN apk upgrade
+# RUN apk add openrc --no-cache
+# RUN apk add openssl \
+#     vsftpd --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
+
+#     # pure-ftpd --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
+# RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
+
+# #SSL
+# # RUN mkdir -p /etc/ssl/private
+# RUN openssl req -x509 -nodes -days 7300 -subj "/C=BE/ST=Bruxelles/O=20/OU=kiss" -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem
+# RUN chmod 600 /etc/ssl/private/vsftpd.pem
+# RUN mkdir -p /run/openrc/ && touch /run/openrc/softlevel
+
+# #USER
+# RUN adduser -D kiss
+# RUN echo "kiss:kiss" | chpasswd
+# RUN touch /home/kiss/test.txt
+
+# #START
+# RUN chmod 777 /tmp/start.sh
+# CMD sh ./tmp/start.sh
+
+
+# FROM	alpine
+
+# RUN		apk update && apk add vsftpd openssl && \
+# 		apk add telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache && \
+# 		echo "root:lolo" | chpasswd && \
+# 		openssl req -x509 -nodes -days 365 \
+# 		-newkey rsa:2048 -subj "/C=SP/ST=Spain/L=Madrid/O=42/CN=127.0.0.1" \
+# 		-keyout /etc/ssl/private/vsftpd.key \
+# 		-out /etc/ssl/certs/vsftpd.crt
+
+# # COPY	/srcs/telegraf.conf			/etc/telegraf/
+# COPY	./srcs/vsftpd.conf			/etc/vsftpd
+# COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
+# COPY srcs/start.sh /tmp/start.sh
+# # COPY	/srcs/start.sh				/
+
+# #Port 21 works in active and passive mode. Port 30021 only passive mode works.
+# # EXPOSE	21 30021
+
+# CMD sh ./tmp/start.sh
+# # ENTRYPOINT	sh start.sh
+
 FROM alpine
 
 #COPY FILES
 COPY srcs/start.sh /tmp/start.sh
-COPY ./srcs/telegraf.conf /etc/telegraf/telegraf.conf
+COPY srcs/telegraf.conf /etc/telegraf/telegraf.conf
 
 #PACKAGES
 RUN apk update
 RUN apk upgrade
 RUN apk add openrc --no-cache
-RUN apk add openssl \
-    vsftpd --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
-
-    # pure-ftpd --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
+RUN apk add openssl pure-ftpd --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ --allow-untrusted --no-cache
 RUN apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/community/ --allow-untrusted --no-cache
 
 #SSL
-# RUN mkdir -p /etc/ssl/private
-RUN openssl req -x509 -nodes -days 7300 -subj "/C=BE/ST=Bruxelles/O=20/OU=kiss" -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem
-RUN chmod 600 /etc/ssl/private/vsftpd.pem
+RUN mkdir -p /etc/ssl/private
+RUN openssl req -x509 -nodes -days 7300 -subj "/C=BE/ST=Bruxelles/O=20/OU=lolo" -newkey rsa:2048 -keyout /etc/ssl/private/pure-ftpd.pem -out /etc/ssl/private/pure-ftpd.pem
+RUN chmod 600 /etc/ssl/private/pure-ftpd.pem
 RUN mkdir -p /run/openrc/ && touch /run/openrc/softlevel
+RUN touch /run/openrc/softlevel
 
 #USER
-RUN adduser -D kiss
-RUN echo "kiss:kiss" | chpasswd
-RUN touch /home/kiss/test.txt
+RUN adduser -D lolo
+RUN echo "lolo:lolo" | chpasswd
+RUN touch /home/lolo/test.txt
 
 #START
 RUN chmod 777 /tmp/start.sh
