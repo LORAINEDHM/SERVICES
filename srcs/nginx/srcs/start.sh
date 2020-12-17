@@ -1,2 +1,2 @@
-# /usr/sbin/sshd && (telegraf conf &) && nginx -g "daemon off;"
+#!/bin/sh
 (telegraf conf &) && /usr/sbin/sshd && nginx -g "daemon off;"

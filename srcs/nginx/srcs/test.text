@@ -1,4 +1,0 @@
-docker exec -ti c49 /bin/sh
-docker rmi $(docker images -aq)
-
-rc-status --servicelist
