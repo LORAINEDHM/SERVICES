@@ -40,6 +40,8 @@ spec:
     name: influxdb
     labels:
       app: influxdb
+    annotations:
+      metallb.universe.tf/allow-shared-ip: shared
   spec:
     ports:
     - name: http

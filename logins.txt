@@ -35,7 +35,7 @@ FTPS
 ssh :
 - login : user/password
 ssh-keygen -R <host>
-ssh user@192.168.99.11
+ssh user@192.168.99.110
 
 
 kubectl exec deploy/wordpress -- pkill nginx 

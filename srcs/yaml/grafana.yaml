@@ -33,6 +33,8 @@ spec:
     name: grafana
     labels:
       app: grafana
+    annotations:
+      metallb.universe.tf/allow-shared-ip: shared
   spec:
     ports:
     - name: http
@@ -42,4 +44,4 @@ spec:
     selector:
       app: grafana
     type: LoadBalancer
-    loadBalancerIP: 192.168.99.112
+   # loadBalancerIP: 192.168.99.110
